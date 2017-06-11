@@ -1,6 +1,7 @@
 package co.pushfortask.Repository.Database;
 
 import android.content.Context;
+import android.util.Log;
 
 import co.pushfortask.Repository.Api.entities.ApiListCommentsForPost;
 import co.pushfortask.Repository.Api.entities.ApiListPosts;
@@ -53,7 +54,6 @@ public class DatabaseSourceImpl implements DatabaseDataSource {
         return RealmObservable.results(mContext, new Func1<Realm, RealmResults<RealmComment>>() {
             @Override
             public RealmResults<RealmComment> call(Realm realm) {
-
                 return RealmHelper.getCommentsForPost(realm,postId);
             }
         }).map(new Func1<RealmResults<RealmComment>, ApiListCommentsForPost>() {

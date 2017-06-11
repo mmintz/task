@@ -33,7 +33,7 @@ public class ObservableApiComments {
         this.mObservableCallbacks = callbacks;
         Observable<ApiListCommentsForPost> mObservableApiListComments = RepositoryImpl.getInstance().getComments(postId);
         mSubscription = mObservableApiListComments
-                .subscribeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ApiListCommentsForPost>() {
                                @Override
                                public void call(ApiListCommentsForPost apiListCommentsForPost) {
@@ -44,9 +44,11 @@ public class ObservableApiComments {
                         , new Action1<Throwable>() {
                             @Override
                             public void call(Throwable throwable) {
-                                mObservableCallbacks.onErrorGetComments(throwable);
                                 mSubscription.unsubscribe();
-                                Log.e(TAG, "Error getting comments");
+                                mObservableCallbacks.onErrorGetComments(throwable);
+
+                                throwable.printStackTrace();
+                                Log.e(TAG, "Error getting comments "+throwable.getMessage());
                             }
                         }
                 );

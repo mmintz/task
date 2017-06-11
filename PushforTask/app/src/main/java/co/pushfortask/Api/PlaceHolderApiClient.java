@@ -1,13 +1,19 @@
 package co.pushfortask.Api;
 
 import android.icu.util.TimeUnit;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.Cache;
+import com.squareup.okhttp.ConnectionPool;
+import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.OkUrlFactory;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
 import java.net.URL;
 
 import co.pushfortask.Api.Deserializers.GetCommentsDeserializer;
@@ -42,7 +48,32 @@ public class PlaceHolderApiClient {
             Cache cache = new Cache(Application.getContext().getCacheDir(), CACHE_SIZE_MB);
             sOkHttpClient.setCache(cache);
             sOkHttpClient.setConnectTimeout(Constants.HTTP_TIMEOUT_SECONDS, java.util.concurrent.TimeUnit.SECONDS);
-            //Do not add interceptors yet
+            sOkHttpClient.setWriteTimeout(Constants.HTTP_TIMEOUT_SECONDS,java.util.concurrent.TimeUnit.SECONDS);
+            sOkHttpClient.setReadTimeout(Constants.HTTP_TIMEOUT_SECONDS,java.util.concurrent.TimeUnit.SECONDS);
+
+            sOkHttpClient.interceptors().add(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+
+                        Request request = chain.request();
+                        Response response = null;
+                        boolean responseOK = false;
+                        int tryCount = 0;
+
+                        while (!responseOK && tryCount < 3) {
+                            try {
+                                response = chain.proceed(request);
+                                responseOK = response.isSuccessful();
+                            }catch (Exception e){
+                                Log.d("intercept", "Request is not successful - " + tryCount);
+                            }finally{
+                                tryCount++;
+                            }
+                        }
+                        return response;
+
+                }
+            });
         }
 
         return sOkHttpClient;
@@ -66,7 +97,7 @@ public class PlaceHolderApiClient {
                         @Override
                         public void intercept(RequestFacade requestFacade) {
                             if (NetworkUtilities.isOnline(Application.getContext())) {
-                                int maxAge = 60;
+                                int maxAge = 14400;
                                 requestFacade.addHeader("Cache-Control", "public, max-age=" + maxAge);
                             } else {
                                 int maxStale = 60 * 60 * 24 * 28;
@@ -78,7 +109,7 @@ public class PlaceHolderApiClient {
 
             //TODO: ADD DEBUG LEVEL LOGS FROM RETROFIT
             //if (BuildConfig.DEBUG) {
-              //  restAdapter.setLogLevel(RestAdapter.LogLevel.FULL);
+                restAdapter.setLogLevel(RestAdapter.LogLevel.FULL);
            // }
 
             sPlaceHolderService = restAdapter.create(PlaceHolderApiIntefrace.class);

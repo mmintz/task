@@ -33,7 +33,7 @@ public class ObservableApiPosts {
         this.mObservableCallbacks = callbacks;
         Observable<ApiListPosts> mObservableApiListPosts = RepositoryImpl.getInstance().getPosts();
         mSubscription = mObservableApiListPosts
-                .subscribeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ApiListPosts>() {
                                @Override
                                public void call(ApiListPosts apiListPosts) {

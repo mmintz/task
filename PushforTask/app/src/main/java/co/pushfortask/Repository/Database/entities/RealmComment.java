@@ -13,8 +13,8 @@ import io.realm.annotations.RealmClass;
 public class RealmComment extends RealmObject {
     @PrimaryKey
     @Index
-    private String postId;
     private String id;
+    private String postId;
     private String name;
     private String email;
     private String body;

@@ -26,7 +26,8 @@ public interface PlaceHolderApiIntefrace {
     Observable<ApiListPosts> getPosts();
 
     @Headers({"Content-Type: application/json",
-            "Accept: Content-Type:application/json"
+            "Accept: Content-Type:application/json",
+            "Access-Control-Allow-Credentials: true"
     })
     @GET("/comments")
     Observable<ApiListCommentsForPost> getComments(@Query("postId") String postId);

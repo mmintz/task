@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        card_view:cardCornerRadius="@dimen/card_radius"
+        android:background="@color/colorPrimary"
+        android:elevation="6dp"
+        card_view:cardUseCompatPadding="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/title_cardview_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/post_title_padding"
+                android:textSize="@dimen/title_text_size"
+                />
+
+            <TextView
+                android:id="@+id/description_cardview_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/description_padding"
+                android:paddingLeft="@dimen/post_title_padding"
+                android:paddingRight="@dimen/post_title_padding"
+                android:layout_below="@id/title_cardview_comments"
+                />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/comments_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/description_padding"
+        android:paddingLeft="@dimen/post_title_padding"
+        android:paddingRight="@dimen/post_title_padding"
+        android:text="Comments"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/card_view_comments"
+        android:layout_alignParentStart="true"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_comments"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/comments_number"
+        android:layout_alignParentStart="true"/>
+
+
+</RelativeLayout>

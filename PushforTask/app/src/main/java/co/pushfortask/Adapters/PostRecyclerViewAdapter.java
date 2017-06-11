@@ -28,11 +28,6 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
 
     public void addPosts(List<ApiPost> posts) {
         mPosts = posts;
-//        for(ApiPost post: posts) {
-//            if(!mPosts.contains(post)) {
-//                mPosts.add(post);
-//            }
-//        }
     }
 
     @Override

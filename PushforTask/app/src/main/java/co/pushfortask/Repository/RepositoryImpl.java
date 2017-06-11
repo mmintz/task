@@ -63,14 +63,14 @@ public class RepositoryImpl implements RepositoryInterface {
             //TODO : RACE CONDITION ?
 
             if (NetworkUtilities.isOnline(Application.getContext())) {
-                // Merge both observables to get the data from both once comes back.
-                apiListPostsObservable = Observable.merge(apiListPostsObservableDB, apiListPostsObservableNet);
+                //TODO: Idealy Merge both observables to get the data from both once comes back.
+                apiListPostsObservable = apiListPostsObservableNet;//Observable.merge(apiListPostsObservableDB, apiListPostsObservableNet);
             } else {
                 apiListPostsObservable = apiListPostsObservableDB;
             }
 
         } catch (Exception e) {
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, e.getMessage());
             e.printStackTrace();
         }
 
@@ -101,14 +101,14 @@ public class RepositoryImpl implements RepositoryInterface {
             //TODO : RACE CONDITION ?
 
             if (NetworkUtilities.isOnline(Application.getContext())) {
-                // Merge both observables to get the data from both once comes back.
-                apiListCommentsForPostObservable = Observable.merge(apiListCommentsForPostObservableDB, apiListCommentsForPostObservableNet);
+                //TODO: Idealu Merge both observables to get the data from both once comes back.
+                apiListCommentsForPostObservable = apiListCommentsForPostObservableNet;
             } else {
                 apiListCommentsForPostObservable = apiListCommentsForPostObservableDB;
             }
 
         } catch (Exception e) {
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, "Exception RepositoryImpl " + e.getMessage());
             e.printStackTrace();
         }
 

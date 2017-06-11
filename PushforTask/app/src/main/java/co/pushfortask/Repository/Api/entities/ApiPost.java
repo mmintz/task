@@ -1,12 +1,14 @@
 package co.pushfortask.Repository.Api.entities;
 
+import java.io.Serializable;
+
 import co.pushfortask.Repository.Database.entities.RealmPosts;
 
 /**
  * Created by Marios on 10/06/2017.
  */
 
-public class ApiPost extends ApiBaseClass {
+public class ApiPost extends ApiBaseClass implements Serializable{
 
     private String userId;
     private String id;

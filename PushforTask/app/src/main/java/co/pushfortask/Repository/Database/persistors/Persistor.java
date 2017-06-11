@@ -85,7 +85,7 @@ public class Persistor<T> implements PersistorIntefrace {
 
     private Observable<ApiListCommentsForPost> persistComments(final ApiListCommentsForPost apiListCommentsForPost)
     {
-        Log.d(TAG,"persistComments = "+ apiListCommentsForPost);
+        Log.d(TAG,"persistComments = "+ apiListCommentsForPost.getmApiComments().size());
         final RealmListComments realmListComments = new RealmListComments(apiListCommentsForPost);
         Realm realm = RealmHelper.getInstance();
         try{

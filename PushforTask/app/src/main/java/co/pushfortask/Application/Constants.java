@@ -7,5 +7,8 @@ package co.pushfortask.Application;
 public class Constants {
 
     // OkHttp and Retrofit constants
-    public static final int HTTP_TIMEOUT_SECONDS = 10;
+    public static final int HTTP_TIMEOUT_SECONDS = 30;
+
+    //Serializable Flags for IntentExtra
+    public static final String POST_DATA_FLAG = "postData";
 }

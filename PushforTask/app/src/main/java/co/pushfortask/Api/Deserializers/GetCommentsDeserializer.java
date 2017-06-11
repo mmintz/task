@@ -32,7 +32,7 @@ public class GetCommentsDeserializer extends PlaceHolderDeserializer {
             }.getType();
             comments = new Gson().fromJson(baseClass.getJsonElementResult(), typeArrayComments);
         } catch (Exception exc) {
-            Log.e(TAG, exc.getMessage());
+            Log.e(TAG, "commentDeserializer exc" +exc.getMessage());
             exc.printStackTrace();
         }
         return new ApiListCommentsForPost(comments);

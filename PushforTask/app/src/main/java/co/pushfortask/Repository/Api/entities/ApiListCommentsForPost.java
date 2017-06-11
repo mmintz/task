@@ -1,5 +1,7 @@
 package co.pushfortask.Repository.Api.entities;
 
+import android.util.Log;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,6 @@ public class ApiListCommentsForPost extends ApiBaseClass{
     }
 
     public ApiListCommentsForPost(AbstractList<RealmComment> realmComments) {
-
         mApiComments = new ArrayList<>();
         for (RealmComment realmComment : realmComments) {
             mApiComments.add(new ApiComment(realmComment));
