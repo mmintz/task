@@ -21,3 +21,9 @@ However while working on the task and implementing the tests i realized that I s
 The MVP Architecture decouples the view from anything else that has to do with it. In my opinion the view (Activity in our case) should have no interaction with databases, network calls etc. That can make testing also even simple and easier and the logic of the Application more clear.
 Along with Google’s Mockito and Reactive Extensions unit test become very simple to write and therefore catch bugs earlier. 
 
+Improvements
+
+1)The app could have a listener for network changes to provide a better user experience by showing an indication to the user.(For example if you download the app for the first time and then go offline and launch the app there is no indication why no posts are shown. The user needs to exit the app and enter again having netowork in that case (rare case))
+2)There is no paging. Having 100 posts is ok but if there where 1 million posts the app should support paging. Prefetching more posts while scrolling on the view. However in order to implement that we need the server to support it first.
+3)Better UI
+4)Going from offline to online the app should fetch the posts from the network and merge them with the database in anycase there are new posts. (Currently we persist all the posts we get from the network without checking any changes)
