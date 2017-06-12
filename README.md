@@ -27,3 +27,4 @@ Improvements
 2)There is no paging. Having 100 posts is ok but if there where 1 million posts the app should support paging. Prefetching more posts while scrolling on the view. However in order to implement that we need the server to support it first.
 3)Better UI
 4)Going from offline to online the app should fetch the posts from the network and merge them with the database in anycase there are new posts. (Currently we persist all the posts we get from the network without checking any changes)
+5)The libraries included in the project should be under network mount accessible by any developer and should be imported under libs folder using gradle scripts. They should not be pushed into the git repository (that is the reason my repo is quite big)
