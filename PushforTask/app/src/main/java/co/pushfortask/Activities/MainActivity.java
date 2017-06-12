@@ -6,6 +6,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements ObservableApiPost
     private RecyclerView recyclerView;
     private PostRecyclerViewAdapter adapter;
     private List<ApiPost> posts;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements ObservableApiPost
     }
 
     private void initViews() {
+        progressBar = (ProgressBar) findViewById(R.id.progress_posts);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_posts);
     }
 
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements ObservableApiPost
 
     @Override
     public void fetchData() {
+        onStartRequestUpdateUI();
         new ObservableApiPosts(this);
     }
 
@@ -73,20 +78,22 @@ public class MainActivity extends AppCompatActivity implements ObservableApiPost
     @Override
     public void onErrorGetPosts(Throwable throwable) {
         Log.d(TAG,"Error");
+        onErrorRequestUpdateUI();
     }
 
     @Override
     public void onStartRequestUpdateUI() {
-        //Stop Spinner
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSuccessRequestUpdateUI() {
-
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onErrorRequestUpdateUI() {
+        progressBar.setVisibility(View.GONE);
 
     }
 

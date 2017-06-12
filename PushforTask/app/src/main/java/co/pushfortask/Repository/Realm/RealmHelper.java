@@ -17,8 +17,14 @@ public class RealmHelper {
     private static final String TAG = RealmHelper.class.getName();
 
     public static Realm getInstance() {
+        try{
+            Realm.getInstance(Application.getContext());
+            return Realm.getInstance(Application.getContext());
+        }catch (Exception e)
+        {
+            return null;
+        }
 
-        return Realm.getInstance(Application.getContext());
     }
 
     public static void deleteRealmFile() {
