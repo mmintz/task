@@ -20,6 +20,11 @@ public class ApiListPosts extends ApiBaseClass{
         return mApiPosts;
     }
 
+    public void addPost(ApiPost newPost)
+    {
+        mApiPosts.add(newPost);
+    }
+
     public ApiListPosts(AbstractList<RealmPosts> realmPosts) {
 
         mApiPosts = new ArrayList<>();

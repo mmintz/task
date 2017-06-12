@@ -13,7 +13,6 @@ public class NetworkDataSourceImpl implements NetworkDataSourceInterface {
 
     private static final String TAG = NetworkDataSourceImpl.class.getName();
 
-
     @Override
     public Observable<ApiListPosts> getListOfPosts() {
         return PlaceHolderApiClient.getsPlaceHolderClient().getPosts();

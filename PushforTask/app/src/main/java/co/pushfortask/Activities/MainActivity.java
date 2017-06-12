@@ -15,10 +15,12 @@ import co.pushfortask.R;
 import co.pushfortask.Repository.Api.entities.ApiListPosts;
 import co.pushfortask.Repository.Api.entities.ApiPost;
 import co.pushfortask.Repository.Observables.ObservableApiPosts;
+import co.pushfortask.Repository.RequestStatus;
+import co.pushfortask.Repository.Requests;
 import co.pushfortask.events.ApplicationReadyEvent;
 import de.greenrobot.event.EventBus;
 
-public class MainActivity extends AppCompatActivity implements ObservableApiPosts.Callbacks {
+public class MainActivity extends AppCompatActivity implements ObservableApiPosts.Callbacks, RequestStatus, Requests {
 
     private static final String TAG = MainActivity.class.getName();
     private RecyclerView recyclerView;
@@ -31,20 +33,12 @@ public class MainActivity extends AppCompatActivity implements ObservableApiPost
         Log.d(TAG,"onCreateMainActivity");
         setContentView(R.layout.activity_main);
         initViews();
-
-
         adapter = new PostRecyclerViewAdapter();
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-        fetchPosts();
-
-
-    }
-
-    private void fetchPosts() {
-        new ObservableApiPosts(this);
+        fetchData();
     }
 
     private void initViews() {
@@ -62,14 +56,39 @@ public class MainActivity extends AppCompatActivity implements ObservableApiPost
     }
 
     @Override
+    public void fetchData() {
+        new ObservableApiPosts(this);
+    }
+
+    @Override
     public void onCompleteGetPosts(ApiListPosts apiListPosts) {
         Log.e(TAG,"Success "+ apiListPosts.getApiPosts().size());
+
         adapter.addPosts(new ArrayList<ApiPost>(apiListPosts.getApiPosts()));
         adapter.notifyDataSetChanged();
+        onSuccessRequestUpdateUI();
     }
+
 
     @Override
     public void onErrorGetPosts(Throwable throwable) {
         Log.d(TAG,"Error");
     }
+
+    @Override
+    public void onStartRequestUpdateUI() {
+        //Stop Spinner
+    }
+
+    @Override
+    public void onSuccessRequestUpdateUI() {
+
+    }
+
+    @Override
+    public void onErrorRequestUpdateUI() {
+
+    }
+
+
 }

@@ -15,6 +15,10 @@ public class ApiPost extends ApiBaseClass implements Serializable{
     private String title;
     private String body;
 
+    public ApiPost(){
+
+    }
+
     public ApiPost(RealmPosts realmPosts)
     {
         this.userId = realmPosts.getUserId();

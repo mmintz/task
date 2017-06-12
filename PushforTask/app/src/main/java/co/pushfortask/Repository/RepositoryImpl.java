@@ -34,7 +34,7 @@ public class RepositoryImpl implements RepositoryInterface {
         return sRepository;
     }
 
-    private RepositoryImpl(DatabaseDataSource databaseSource, NetworkDataSourceInterface networkDataSource) {
+    public RepositoryImpl(DatabaseDataSource databaseSource, NetworkDataSourceInterface networkDataSource) {
         this.mDbDataSource = databaseSource;
         this.mNetworkDataSource = networkDataSource;
     }
